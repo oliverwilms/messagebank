@@ -1,20 +1,17 @@
-Class App.Installer
+Class MessageBank.Installer
 {
 
 XData setup
 {
 <Manifest>
-  <Default Name="Namespace" Value="IRISAPP"/>
-  <Default Name="app" Value="irisapp" />
+  <Default Name="Namespace" Value="MESSAGEBANK"/>
+  <Default Name="app" Value="messagebank" />
 
   <Namespace Name="${Namespace}" Code="${Namespace}" Data="${Namespace}" Create="yes" Ensemble="1">
-
     <Configuration>
-      <Database Name="${Namespace}" Dir="/opt/${app}/data" Create="yes" Resource="%DB_${Namespace}"/>
+      <Database Name="MBKCODE" Dir="/voldata/irisdb/MBKCODE" Create="yes" MountRequired="true" Resource="%DB_MBKCODE" PublicPermissions="" MountAtStartup="true"/>
+      <Database Name="MBKDATA" Dir="/voldata/irisdb/MBKDATA" Create="yes" MountRequired="true" Resource="%DB_MBKDATA" PublicPermissions="" MountAtStartup="true"/>
     </Configuration>
-    <CSPApplication Url="/csp/${app}" Directory="${cspdir}${app}"  ServeFiles="1" Recurse="1" MatchRoles=":%DB_${Namespace}" AuthenticationMethods="32"
-       
-    />
   </Namespace>
 
 </Manifest>
