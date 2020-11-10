@@ -23,4 +23,59 @@ ClassMethod setup(ByRef pVars, pLogLevel As %Integer = 3, pInstaller As %Install
   Quit ##class(%Installer.Manifest).%Generate(%compiledclass, %code, "setup")
 }
 
+/// Use CPF Merge for Server IP
+ClassMethod ConfigECP(ByRef pVars, pVerbose As %String = 1) As %Status
+{
+	If pVerbose {
+		Write "Begin ConfigECP",!
+		zw pVars
+	}
+	Set ECPProperties("Address") = $Get(pVars("Address"),"11.22.33.44")
+	Set ECPProperties("MirrorConnection") = $Get(pVars("MirrorConnection"),1)
+	Set ECPProperties("Port") = $Get(pVars("Port"),51773)
+	Set pECPServerName = $Get(pVars("ServerName"),"DMLSS_DBR")
+	Set tSC = ##class(Config.ECPServers).Create(pECPServerName,.ECPProperties)
+	If pVerbose {
+		zw ECPProperties
+		Write $system.Status.GetOneErrorText(tSC),!
+	}
+	//
+	Set pDatabaseName = $Get(pVars("DatabaseName"),"DMLSS_DBR")
+	Set pMirrorName = $Get(pVars("MirrorName"),"IRISMIRROR")
+	Set pMirrorPath = $Get(pVars("MirrorPath"),"DMLSS_DB")
+	Set DBProperties("Server") = pECPServerName
+	Set DBProperties("Directory") = ":mirror:"_pMirrorName_":"_pMirrorPath
+	Set tSC = ##class(Config.Databases).Create(pDatabaseName,.DBProperties)
+	If pVerbose {
+		zw DBProperties
+		Write $system.Status.GetOneErrorText(tSC),!
+	}
+	Set pResourceName = "%DB_"_pMirrorPath
+	Set pDescription = "Resource for Remote DB"
+	Set tSC = ##class(Security.Resources).Create(pResourceName,pDescription)
+	If pVerbose {
+		Write $system.Status.GetOneErrorText(tSC),!
+	}
+	Quit $$$OK
+}
+
+ClassMethod AWSConfigIRIS(ByRef pVars, pLogLevel As %String = "", tInstaller) As %Status
+{
+	Set myNamespace = $Namespace
+	ZN "%SYS"
+	If $Get(pLogLevel) = "" Set pLogLevel = 1
+	Set tSC = ..ConfigECP(.pVars,pLogLevel)
+	If (tSC '= $$$OK) {
+		Write "ECP Config failed.",!
+		Write "Check if Data Server allows connection from this host.",!
+		Write $system.Status.GetOneErrorText(tSC),!
+		ZN myNamespace
+		Quit tSC
+	}
+	//zw pVars
+	ZN myNamespace
+	Set tSC = ..setup()
+	Quit tSC
+}
+
 }
