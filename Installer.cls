@@ -4,7 +4,6 @@ Class MessageBank.Installer
 XData setup
 {
 <Manifest>
-  <Default Name="AutoStart" Value="MessageBank.Production"/>
   <Default Name="Namespace" Value="MESSAGEBANK"/>
   <Default Name="app" Value="messagebank" />
 
@@ -16,6 +15,10 @@ XData setup
       <RoutineMapping Routines="HS*" From="HSLIB"/>
     </Configuration>
   </Namespace>
+  
+  <Log Text="Configuring Ensemble Globals for MESSAGEBANK namespace." Level="0"/>
+  <RunInstall Class="MessageBank.Installer" Method="EnableAutoStart"/>
+
 
 </Manifest>
 }
@@ -65,13 +68,13 @@ ClassMethod ConfigECP(ByRef pVars, pVerbose As %String = 1) As %Status
 /// Configure Message Bank Link AND AutoStart Production
 ClassMethod EnableAutoStart(ByRef pVars, pLogLevel, tInstaller) As %Status
 {
-	Set myNamespace = pVars("Namespace")
-	ZN myNamespace
+	Set myNamespace = $Namespace
+	Set $Namespace = pVars("Namespace")
 	If pVars("AutoStart") '= "" {
 		Set ^Ens.AutoStart = pVars("AutoStart")
 		Set ^Ens.AutoStart("StartupPriority") = 0
 	}
-	ZN "%SYS"
+	ZN myNamespace
 	Quit $$$OK
 }
 
@@ -90,14 +93,14 @@ ClassMethod AWSConfigIRIS(ByRef pVars, pLogLevel As %String = "", tInstaller) As
 	}
 	//zw pVars
 	ZN myNamespace
+	Set pVars("AutoStart") = "MessageBank.Production"
+	Set pVars("Namespace") = "MESSAGEBANK"
 	Set tSC = ..setup()
 	If (tSC '= $$$OK) {
 		Write "Setup failed.",!
 		Write $system.Status.GetOneErrorText(tSC),!
-		ZN myNamespace
-		Quit tSC
 	}
-	Set tSC = ..EnableAutoStart(.pVars,pLogLevel)
+	ZN myNamespace
 	Quit tSC
 }
 
