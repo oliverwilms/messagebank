@@ -4,6 +4,7 @@ Class MessageBank.Installer
 XData setup
 {
 <Manifest>
+  <Default Name="AutoStart" Value="MessageBank.Production"/>
   <Default Name="Namespace" Value="MESSAGEBANK"/>
   <Default Name="app" Value="messagebank" />
 
@@ -11,6 +12,8 @@ XData setup
     <Configuration>
       <Database Name="MBKCODE" Dir="/voldata/irisdb/MBKCODE" Create="yes" MountRequired="true" Resource="%DB_MBKCODE" PublicPermissions="" MountAtStartup="true"/>
       <Database Name="MBKDATA" Dir="/voldata/irisdb/MBKDATA" Create="yes" MountRequired="true" Resource="%DB_MBKDATA" PublicPermissions="" MountAtStartup="true"/>
+      <GlobalMapping Global="HS.Local.VFC75.*" From="DMLSS_DBR"/>  <!-- for Common DocumentIDTable -->
+      <RoutineMapping Routines="HS*" From="HSLIB"/>
     </Configuration>
   </Namespace>
 
@@ -59,6 +62,19 @@ ClassMethod ConfigECP(ByRef pVars, pVerbose As %String = 1) As %Status
 	Quit $$$OK
 }
 
+/// Configure Message Bank Link AND AutoStart Production
+ClassMethod EnableAutoStart(ByRef pVars, pLogLevel, tInstaller) As %Status
+{
+	Set myNamespace = pVars("Namespace")
+	ZN myNamespace
+	If pVars("AutoStart") '= "" {
+		Set ^Ens.AutoStart = pVars("AutoStart")
+		Set ^Ens.AutoStart("StartupPriority") = 0
+	}
+	ZN "%SYS"
+	Quit $$$OK
+}
+
 ClassMethod AWSConfigIRIS(ByRef pVars, pLogLevel As %String = "", tInstaller) As %Status
 {
 	Set myNamespace = $Namespace
@@ -75,6 +91,13 @@ ClassMethod AWSConfigIRIS(ByRef pVars, pLogLevel As %String = "", tInstaller) As
 	//zw pVars
 	ZN myNamespace
 	Set tSC = ..setup()
+	If (tSC '= $$$OK) {
+		Write "Setup failed.",!
+		Write $system.Status.GetOneErrorText(tSC),!
+		ZN myNamespace
+		Quit tSC
+	}
+	Set tSC = ..EnableAutoStart(.pVars,pLogLevel)
 	Quit tSC
 }
 
