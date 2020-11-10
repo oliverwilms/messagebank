@@ -11,7 +11,7 @@ FROM $IMAGE
 USER root   
         
 WORKDIR /opt/messagebank
-RUN chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /opt/messagebank
+RUN mkdir /ghostdb/ && mkdir /voldata/ && mkdir /voldata/irisdb/ && chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /opt/messagebank /ghostdb/ /voldata/ /voldata/irisdb/
 USER ${ISC_PACKAGE_MGRUSER}
 
 COPY  Installer.cls .
