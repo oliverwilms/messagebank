@@ -7,7 +7,7 @@ XData setup
   <Default Name="Namespace" Value="MESSAGEBANK"/>
   <Default Name="app" Value="messagebank" />
 
-  <Namespace Name="${Namespace}" Code="${Namespace}" Data="${Namespace}" Create="yes" Ensemble="1">
+  <Namespace Name="${Namespace}" Code="MBKCODE" Data="MBKDATA" Create="yes" Ensemble="1">
     <Configuration>
       <Database Name="MBKCODE" Dir="/voldata/irisdb/MBKCODE" Create="yes" MountRequired="true" Resource="%DB_MBKCODE" PublicPermissions="" MountAtStartup="true"/>
       <Database Name="MBKDATA" Dir="/voldata/irisdb/MBKDATA" Create="yes" MountRequired="true" Resource="%DB_MBKDATA" PublicPermissions="" MountAtStartup="true"/>
