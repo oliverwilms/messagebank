@@ -95,7 +95,7 @@ ClassMethod AWSConfigIRIS(ByRef pVars, pLogLevel As %String = "", tInstaller) As
 	ZN myNamespace
 	Set pVars("AutoStart") = "MessageBank.Production"
 	Set pVars("Namespace") = "MESSAGEBANK"
-	Set tSC = ..setup()
+	Set tSC = ..setup(.pVars)
 	If (tSC '= $$$OK) {
 		Write "Setup failed.",!
 		Write $system.Status.GetOneErrorText(tSC),!
