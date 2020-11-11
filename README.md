@@ -42,6 +42,8 @@ docker run --init --detach -p 52773:52773 -p 51773:51773 --name messagebank --vo
 
 Open the [production](http://localhost:52795/csp/messagebank/EnsPortal.ProductionConfig.zen?PRODUCTION=MessageBank.Production) and start it if it is not running already.
 
+I use a CPF Merge file to define the ECP Server that I use to store data in mapped globals in a remote database.
+
 ## How to Look for and Resend Messages
 Use 
 
