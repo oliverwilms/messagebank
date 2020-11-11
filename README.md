@@ -38,6 +38,8 @@ $ docker-compose up -d
 
 ## How to Run the Message Bank
 
+docker run --init --detach -p 52773:52773 -p 51773:51773 --name messagebank --volume mbk-vol:/voldata --env ISC_DATA_DIRECTORY=/voldata/iconfig --env ISC_CPF_MERGE_FILE=”/ICS/merge.cpf” --volume /hostinfo:/hostinfo --volume /efs/ICS:/ICS messagebank -b /ICS/vcopy.sh
+
 Open the [production](http://localhost:52795/csp/messagebank/EnsPortal.ProductionConfig.zen?PRODUCTION=MessageBank.Production) and start it if it is not running already.
 
 ## How to Look for and Resend Messages
