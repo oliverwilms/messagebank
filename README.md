@@ -3,9 +3,8 @@ This is a Message Bank InterSystems IRIS Interoperability solution. It receives 
 
 ## What The Message Bank Does
 
-The Message Bank has an interoperability [production](https://github.com/oliverwilms/messagebank/blob/master/src/MessageBank/Production.cls) with 
-You can alter both the URL and frequency in the service's settings.
-<img width="1411" alt="Screenshot 2020-10-29 at 19 33 14" src="https://user-images.githubusercontent.com/2781759/97603605-a6d0af00-1a1d-11eb-99cc-481efadb0ec6.png">
+The Message Bank has an interoperability [production](https://github.com/oliverwilms/messagebank/blob/master/src/MessageBank/Production.cls) with two Services.
+<img width="1411" alt="Screenshot of Production" src="https://github.com/oliverwilms/bilder/blob/main/Capture_MessageBank_Production.PNG">
 
 ## Prerequisites
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker desktop](https://www.docker.com/products/docker-desktop) installed.
