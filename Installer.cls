@@ -12,7 +12,6 @@ XData setup
       <Database Name="MBKCODE" Dir="/voldata/irisdb/MBKCODE" Create="yes" MountRequired="true" Resource="%DB_MBKCODE" PublicPermissions="" MountAtStartup="true"/>
       <Database Name="MBKDATA" Dir="/voldata/irisdb/MBKDATA" Create="yes" MountRequired="true" Resource="%DB_MBKDATA" PublicPermissions="" MountAtStartup="true"/>
       <GlobalMapping Global="HS.Local.VFC75.*" From="DMLSS_DBR"/>  <!-- for Common DocumentIDTable -->
-      <RoutineMapping Routines="HS*" From="HSLIB"/>
     </Configuration>
   </Namespace>
   
