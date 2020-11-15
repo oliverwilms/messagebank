@@ -1,9 +1,11 @@
-version: '3.6'
+version: '3.8'
 services:
   iris:
     build: 
       context: .
       dockerfile: Dockerfile
+    init:
+      - true
     restart: always
     ports: 
       - 1972
