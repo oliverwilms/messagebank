@@ -1,5 +1,5 @@
 ## messagebank
-This project presents an example how to utilize a Message Bank InterSystems IRIS Interoperability solution. The Message Bank receives Messages and Logs from other InterSystems IRIS Productions so they can be viewed or resent.
+This project presents an example how to utilize a Message Bank InterSystems IRIS Interoperability solution. The Message Bank receives Messages and Logs from other InterSystems IRIS Productions so they can be viewed or resent. This is very handy if you have multiple productions running.
 
 ## What The Message Bank Does
 The Message Bank has an interoperability [production](https://github.com/oliverwilms/messagebank/blob/master/src/MessageBank/Production.cls) with two Services.
