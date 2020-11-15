@@ -3,18 +3,6 @@ Include %occSAX
 Class MessageBank.MessageResend Extends Ens.Enterprise.Portal.MessageResend
 {
 
-ClassMethod AddDateTimeDiff(
-	pTS1 As %String,
-	pDiff As %Integer,
-	pTSI As %String = "SQL_TSI_SECOND") As %String
-{
-	Set c = ","
-	Set q = "'"
-	Set pQuery = "SELECT {fn TIMESTAMPADD("_pTSI_c_pDiff_c_q_pTS1_q_")}"
-	Set tSC = ..ExecuteQueryOneValue(pQuery,.pResult)
-	Quit $Get(pResult,"<undefined>")
-}
-
 ClassMethod DebugStatus(pSC As %Status) As %Status
 {
 	Set tMessage = $SYSTEM.Status.GetOneErrorText(pSC)
@@ -25,22 +13,6 @@ ClassMethod DebugTEST(pMessage As %String = "") As %Status
 {
 	Write pMessage,!
 	Quit $$$OK
-}
-
-ClassMethod ExecuteQueryOneValue(
-	pQuery As %String,
-	ByRef pResult As %String) As %Status
-{
-	Set pResult = ""
-	Set rs = ##class(%ResultSet).%New()
-	Set tSC = rs.Prepare(pQuery)
-	If $$$ISOK(tSC) {
-		Set tSC = rs.Execute()
-		If $$$ISOK(tSC), rs.Next() Set pResult = rs.GetData(1)
-	}
-	Do rs.Close()
-	Set rs = ""
-	Quit tSC
 }
 
 ClassMethod FindWebIPAddress(
@@ -182,7 +154,7 @@ ClassMethod GetResendClient(
 ClassMethod GetResendStopDateTime(pSeconds As %String = -1800) As %String
 {
 	Set tNow = $ZDATETIME($HOROLOG,3,1)
-	Set tReturn = ..AddDateTimeDiff(tNow,pSeconds,"SQL_TSI_SECOND")
+	Set tReturn = ##class(Utility).AddDateTimeDiff(tNow,pSeconds,"SQL_TSI_SECOND")
 	Quit tReturn
 }
 
