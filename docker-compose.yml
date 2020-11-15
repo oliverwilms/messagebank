@@ -4,6 +4,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+    command: "-b vcopy.sh"
     init: true
     restart: always
     ports: 
@@ -12,4 +13,4 @@ services:
       - 52795:52773
       - 53773
     volumes:
-      - ./:/irisdev/app
+      - ./:/voldata
