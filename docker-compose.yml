@@ -9,8 +9,8 @@ services:
     restart: always
     ports: 
       - 1972
-      - 9192
-      - 52795:52773
+      - 9192:9192
+      - 52773
       - 53773
     environment:
       - ISC_DATA_DIRECTORY=/voldata/iconfig
