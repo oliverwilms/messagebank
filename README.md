@@ -52,3 +52,6 @@ Use the portal
 Created code to locate messages
 
 ## Task to Schedule Resend
+
+Create a new Task in System Management Portal via System Operation > Task Manager. Choose MESSAGEBANK namespace to be able to find the Message Bank Resend task:
+<img width="1411" alt="Screenshot of Production" src="https://github.com/oliverwilms/bilder/blob/main/Capture_MessageBank_NewTask.PNG">
