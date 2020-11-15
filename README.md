@@ -46,12 +46,19 @@ Open the [production](http://localhost:52795/csp/messagebank/EnsPortal.Productio
 I use IRIS Interoperability production in AWS Elastic Container Service. We have a file on host volume at /hostinfo/host.config with the Host IP Address. I use a CPF Merge file to define the ECP Server that I use to store data in mapped globals in a remote database. When the Message Bank Production starts and stops, I update a global with information about the Message Bank, so that containers running another IRIS Interoperability production can update their Message Bank Operation setting with the IP Address to find the Message Bank. 
 
 ## How to Look for and Resend Messages
-Use the portal
 
-## Automate Resending Messages
-Created code to locate messages
+You can use the portal to identify and resend messages, or you can automate this task.
 
 ## Task to Schedule Resend
 
 Create a new Task in System Management Portal via System Operation > Task Manager. Choose MESSAGEBANK namespace to be able to find the Message Bank Resend task:
 <img width="1411" alt="Screenshot of Production" src="https://github.com/oliverwilms/bilder/blob/main/Capture_MessageBank_NewTask.PNG">
+
+## Automate Resending Messages
+
+Once the Message Bank Resend Task is defined and scheduled, it will check for messages that need to be resent and attempt to automatically resend them.
+
+## Message Resend Status Persistent Table
+
+There is a built on persistent class where you can see Resend Status details.
+Created code to locate messages
