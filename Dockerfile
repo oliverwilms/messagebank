@@ -16,6 +16,7 @@ USER ${ISC_PACKAGE_MGRUSER}
 COPY  Installer.cls .
 COPY  src src
 COPY iris.script /tmp/iris.script
+COPY vcopy.sh vcopy.sh
 
 RUN iris start IRIS \
     && iris session IRIS < /tmp/iris.script \
