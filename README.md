@@ -3,7 +3,7 @@ This project presents an example how to utilize a Message Bank InterSystems IRIS
 
 ## What The Message Bank Does
 The Message Bank has an interoperability [production](https://github.com/oliverwilms/messagebank/blob/master/src/MessageBank/Production.cls) with two Services.
-<img width="1411" alt="Screenshot of Production" src="https://github.com/oliverwilms/bilder/blob/main/Capture_MessageBank_Production.PNG">
+<img width="1411" alt="Screenshot of Production" src="https://user-images.githubusercontent.com/50807396/99205130-334cd280-277d-11eb-8ed6-46430418f0c2.PNG">
 
 ## Prerequisites
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker desktop](https://www.docker.com/products/docker-desktop) installed.
@@ -51,7 +51,7 @@ You can use the portal to identify and resend messages, or you can automate this
 ## Task to Schedule Resend
 
 Create a new Task in System Management Portal via System Operation > Task Manager. Choose MESSAGEBANK namespace to be able to find the Message Bank Resend task:
-<img width="1411" alt="Screenshot of Production" src="https://github.com/oliverwilms/bilder/blob/main/Capture_MessageBank_NewTask.PNG">
+<img width="1411" alt="Screenshot of Production" src="https://user-images.githubusercontent.com/50807396/99205124-3051e200-277d-11eb-9f21-a25421986c35.PNG">
 
 ## Automate Resending Messages
 
@@ -60,4 +60,3 @@ Once the Message Bank Resend Task is defined and scheduled, it will check for me
 ## Message Resend Status Persistent Table
 
 There is a built on persistent class where you can see Resend Status details.
-Created code to locate messages
