@@ -163,7 +163,6 @@ ClassMethod WriteArray(ByRef pArray, pAA As %String = "", pDEBUG As %String = 0)
 	Set cs = ": "  // colon + space
 	Set q = """"  // quote
 	Set z = "}"  // close
-	Set (tMyMsgBegin,tMyMsgEnd) = ""
 	Set tFirst = 1
 	Set bb = ""
 	For {
