@@ -67,10 +67,15 @@ ClassMethod GetBaseLogId() As %Status
 ClassMethod GetBaseMsgId(pBegin As %String = "", pEnd As %String = "", pDEBUG As %String = 0) As %Status
 {
 	Do ..DebugTEST("MessageBank.REST - GetBaseMsgId")
+	If (pEnd = "") {
+		Set tDelim = $Extract(pBegin,1)
+		Set pEnd = $Piece(pBegin,tDelim,3)
+		Set pBegin = $Piece(pBegin,tDelim,2)
+	}
 	Kill pMsgBankCount
 	Set strSELECT = "SELECT TimeCreated,TimeBanked,NodeId,Status,SourceConfigName,TargetConfigName"
 	Set strFROM = " FROM Ens_Enterprise_MsgBank.MessageHeader"
-	Set strWHERE = "" // " WHERE TimeBanked BETWEEN '"_pBegin_"' AND '"_pEnd_"'"
+	Set strWHERE = " WHERE TimeBanked BETWEEN '"_pBegin_"' AND '"_pEnd_"'"
 	Set strORDER = " ORDER BY TimeBanked"
 	Set pQuery = strSELECT_strFROM_strWHERE_strORDER
 	Write:pDEBUG pQuery,!
@@ -163,6 +168,7 @@ ClassMethod WriteArray(ByRef pArray, pAA As %String = "", pDEBUG As %String = 0)
 	Set cs = ": "  // colon + space
 	Set q = """"  // quote
 	Set z = "}"  // close
+	Set (tMyMsgBegin,tMyMsgEnd) = ""
 	Set tFirst = 1
 	Set bb = ""
 	For {
