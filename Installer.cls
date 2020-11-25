@@ -17,8 +17,10 @@ XData setup
   
   <Log Text="Configuring Ensemble Globals for MESSAGEBANK namespace." Level="0"/>
   <RunInstall Class="MessageBank.Installer" Method="EnableAutoStart"/>
-
-
+  <If Condition='(##class(Security.Applications).Exists("/mbrest")=0)'>
+	<Log Text="Creating web application /mbrest" Level="0"/>
+	<RunInstall Class="User.DMLInstall" Method="CreateWebAppREST"/>
+  </If>
 </Manifest>
 }
 
@@ -61,6 +63,35 @@ ClassMethod ConfigECP(ByRef pVars, pVerbose As %String = 1) As %Status
 	If pVerbose {
 		Write $system.Status.GetOneErrorText(tSC),!
 	}
+	Quit $$$OK
+}
+
+ClassMethod CreateWebAppREST(pVars, pLogLevel, tInstaller) As %Status
+{
+	/*
+	Set Namespace = tInstaller.Evaluate("${Namespace}")
+	Do tInstaller.PushNS("%SYS")
+	Do ##class(Security.System).GetInstallationSecuritySetting(.security)
+	If (security="None") {
+		Set cspProperties("AutheEnabled") = $$$AutheUnauthenticated
+	} Else {
+		Set cspProperties("AutheEnabled") = $$$AutheCache // Password
+	}
+	*/
+	Set cspName = "/mbrest"
+	
+	Set cspProperties("NameSpace") = $Get(Namespace,"MESSAGEBANK")
+	Set cspProperties("Enabled") = 1
+	Set cspProperties("AutheEnabled") = $$$AutheUnauthenticated
+	Set cspProperties("AutheEnabled") = $$$AutheCache // Password
+	Set cspProperties("DeepSeeEnabled") = 1
+	Set cspProperties("iKnowEnabled") = 0
+	Set cspProperties("DispatchClass") = "MessageBank.REST"
+	Set cspProperties("Resource") = ""
+	Set cspProperties("ServeFiles") = 1
+	Set tSC = ##class(Security.Applications).Create(cspName,.cspProperties)
+	//Do tInstaller.PopNS()
+	If $$$ISERR(tSC) Throw ##class(%Installer.Exception).CreateFromStatus(tSC)
 	Quit $$$OK
 }
 
