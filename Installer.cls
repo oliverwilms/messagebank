@@ -125,6 +125,8 @@ ClassMethod AWSConfigIRIS(ByRef pVars, pLogLevel As %String = "", tInstaller) As
 	ZN myNamespace
 	Set pVars("AutoStart") = "MessageBank.Production"
 	Set pVars("Namespace") = "MESSAGEBANK"
+	Set pVars("User") = "HS_Services"
+	Set pVars("Password") = "abc123"
 	Set tSC = ..setup(.pVars)
 	If (tSC '= $$$OK) {
 		Write "Setup failed.",!
