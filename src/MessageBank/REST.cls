@@ -169,7 +169,7 @@ ClassMethod WriteArray(ByRef pArray, pAA As %String = "", pDEBUG As %String = 0)
 		If (tFirst = 0) Write c
 		Set tFirst = 0
 		Write a,!
-		Write q_"id"_q_cs_q_..JsonValue(bb)_q_c,!
+		Write q_"id"_q_cs_..JsonValue(bb)_c,!
 		Write q_"begin"_q_cs_q_$Get(pArray(pAA,bb,"Begin"))_q_c,!
 		Write q_"end"_q_cs_q_$Get(pArray(pAA,bb,"End"))_q_c,!
 		Write q_"count"_q_cs_$Get(tTarget,0),!
