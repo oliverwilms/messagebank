@@ -14,6 +14,7 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 <Route Url="/BaseMsgId" Method="GET" Call="GetBaseMsgId" />
 <Route Url="/Bases" Method="GET" Call="GetBases" />
 <Route Url="/DateTime" Method="GET" Call="GetDateTime" />
+<Route Url="/MsgBankCount" Method="GET" Call="GetMessageBankCount" />
 <Route Url="/MsgBankReport" Method="GET" Call="GetMessageBankReport" />
 <Route Url="/MessageBankReport/:pBegin" Method="GET" Call="GetMessageBankReport" />
 <Route Url="/MessageBankReport/:pBegin/:pEnd" Method="GET" Call="GetMessageBankReport" />
@@ -46,6 +47,26 @@ ClassMethod GetDateTime(pDateFormat As %String = 3) As %Status
 	Do ..DebugTEST("tDateTime = "_tDateTime)
 	Set data = {}
 	Set data.DateTime = tDateTime
+	Write data.%ToJSON()
+	Quit $$$OK
+}
+
+ClassMethod GetMessageBankCount(pDEBUG As %String = 0) As %Status
+{
+	Do ..DebugTEST("MessageBank.REST - GetMessageBankCount")
+	Set pQuery = "SELECT COUNT(*) FROM Ens_Enterprise_MsgBank.MessageHeader"
+	Set rs = ##class(%ResultSet).%New()
+	Set tSC = rs.Prepare(pQuery)
+	Do:pDEBUG ..DebugStatus(tSC)
+	If $$$ISOK(tSC) {
+		Set tSC = rs.Execute()
+		Do:pDEBUG ..DebugStatus(tSC)
+		If $$$ISOK(tSC), rs.Next() Set pMsgBankCount = rs.GetData(1)
+	}
+	Do rs.Close()
+	Set rs = ""
+	Set data = {}
+	Set data.MessageBankCount = $Get(pMsgBankCount,-1)
 	Write data.%ToJSON()
 	Quit $$$OK
 }
@@ -110,8 +131,8 @@ ClassMethod GetMessageBankReport(pBegin As %String = "", pEnd As %String = "", p
 			}
 			Set pMsgBankCount("Target",$Get(rs.Data("TargetConfigName")),"End") = $Get(rs.Data("TimeBanked"))
 		}
+		Set tMyMsgEnd = $Get(rs.Data("TimeBanked"))
 	}
-	Set tMyMsgEnd = $Get(rs.Data("TimeBanked"))
 	Do rs.Close()
 	Set rs = ""
 
