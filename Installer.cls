@@ -19,7 +19,7 @@ XData setup
   <RunInstall Class="MessageBank.Installer" Method="EnableAutoStart"/>
   <If Condition='(##class(Security.Applications).Exists("/mbrest")=0)'>
 	<Log Text="Creating web application /mbrest" Level="0"/>
-	<RunInstall Class="User.DMLInstall" Method="CreateWebAppREST"/>
+	<RunInstall Class="MessageBank.Installer" Method="CreateWebAppREST"/>
   </If>
 </Manifest>
 }
