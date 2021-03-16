@@ -21,6 +21,7 @@ XData setup
 	<Log Text="Creating web application /mbrest" Level="0"/>
 	<RunInstall Class="MessageBank.Installer" Method="CreateWebAppREST"/>
   </If>
+  <User Username="_SYSTEM" PasswordVar="Password" Roles="%All" Enabled="true"/>
 </Manifest>
 }
 
