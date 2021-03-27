@@ -44,7 +44,8 @@ ClassMethod GetDateTimeDiff(
 ClassMethod GetHostIPAddr(Output pSC As %Status) As %String
 {
 	Set pSC = $$$OK
-	//Set tHostIPAddr = $P($zu(54,13,$zu(54,0)),",")
+	Set tHostIPAddr = $P($zu(54,13,$zu(54,0)),",")
+	If tHostIPAddr?1.N1"."1.N1"."1.N1"."1.N Quit tHostIPAddr
 	Set tHostinfoPath = "/hostinfo/"
 	Set tHostinfoFile = "host.config"
 	Set tFile = tHostinfoPath_tHostinfoFile
