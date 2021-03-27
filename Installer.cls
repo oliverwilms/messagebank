@@ -15,6 +15,12 @@ XData setup
     </Configuration>
   </Namespace>
   
+  <Namespace Name="%SYS" Create="no">
+    <Log Text="Importinng ZSTU" Level="0"/>
+    <Import File='/ICS/export.ro' Flags="cuk" Recurse="true">
+    </Import>
+  </Namespace>
+
   <Log Text="Configuring Ensemble Globals for MESSAGEBANK namespace." Level="0"/>
   <RunInstall Class="MessageBank.Installer" Method="EnableAutoStart"/>
   <If Condition='(##class(Security.Applications).Exists("/mbrest")=0)'>
