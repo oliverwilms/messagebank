@@ -11,7 +11,7 @@ XData setup
     <Configuration>
       <Database Name="MBKCODE" Dir="/voldata/irisdb/MBKCODE" Create="yes" MountRequired="true" Resource="%DB_MBKCODE" PublicPermissions="" MountAtStartup="true"/>
       <Database Name="MBKDATA" Dir="/voldata/irisdb/MBKDATA" Create="yes" MountRequired="true" Resource="%DB_MBKDATA" PublicPermissions="" MountAtStartup="true"/>
-      <GlobalMapping Global="HS.Local.VFC75.*" From="DMLSS_DBR"/>  <!-- for Common DocumentIDTable -->
+      <GlobalMapping Global="HS.Local.VFC75.*" From="DMLSS_DBR"/>  <!-- store Message Bank IP address -->
     </Configuration>
   </Namespace>
   
